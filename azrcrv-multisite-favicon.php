@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Multisite Favicon
  * Description: Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon
@@ -17,13 +17,13 @@
  * ------------------------------------------------------------------------------
  */
 
-// include plugin menu
-require_once(dirname( __FILE__).'/pluginmenu/menu.php');
-
 // Prevent direct access.
 if (!defined('ABSPATH')){
 	die();
 }
+
+// include plugin menu
+require_once(dirname( __FILE__).'/pluginmenu/menu.php');
 
 /**
  * Setup registration activation hook, actions, filters and shortcodes.
@@ -287,7 +287,7 @@ function azrcrv_msfi_network_settings(){
 					<p class="description"><?php esc_html_e('Set default favicon used when no img attribute set', 'multisite-favicon'); ?></p>
 				</td></tr>
 				</table>
-				<input type="submit" value="Save Changes" class="button-primary" />
+				<input type="submit" value="<?php esc_html_e('Submit', 'multisite-favicon'); ?>" class="button-primary"/>
 			</form>
 		</fieldset>
 	</div>
