@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Multisite Favicon
  * Description: Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon
@@ -24,6 +24,10 @@ if (!defined('ABSPATH')){
 
 // include plugin menu
 require_once(dirname( __FILE__).'/pluginmenu/menu.php');
+register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_mf');
+
+// include update client
+require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
 
 /**
  * Setup registration activation hook, actions, filters and shortcodes.
@@ -40,12 +44,24 @@ add_action('admin_post_azrcrv_msfi_save_options', 'azrcrv_msfi_save_options');
 add_action('network_admin_menu', 'azrcrv_msfi_create_network_admin_menu');
 add_action('network_admin_edit_azrcrv_msfi_save_network_options', 'azrcrv_msfi_save_network_options');
 add_action('wp_head', 'azurecurve_msfi_load_favicon');
+add_action('plugins_loaded', 'azrcrv_msfi_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_msfi_add_plugin_action_link', 10, 2);
 
 // add shortcodes
 add_shortcode('shortcode', 'shortcode_function');
+
+/**
+ * Load language files.
+ *
+ * @since 1.0.0
+ *
+ */
+function azrcrv_msfi_load_languages() {
+    $plugin_rel_path = basename(dirname(__FILE__)).'/languages';
+    load_plugin_textdomain('azrcrv-msfi', false, $plugin_rel_path);
+}
 
 /**
  * Set default options for plugin.
@@ -167,7 +183,7 @@ function azrcrv_msfi_display_options(){
 	?>
 	<div id="azrcrv-msfi-general" class="wrap">
 		<fieldset>
-			<h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<?php if(isset($_GET['settings-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Site settings have been saved.', 'multisite-favicon') ?></strong></p>
@@ -267,7 +283,7 @@ function azrcrv_msfi_network_settings(){
 	?>
 	<div id="azrcrv-msfi-general" class="wrap">
 		<fieldset>
-			<h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<form action="edit.php?action=update_azc_msfi_network_options" method="post">
 				<input type="hidden" name="action" value="save_azc_msfi_network_options" />
 				<input name="page_options" type="hidden" value="default_path, default_favicon" />
