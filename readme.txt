@@ -1,7 +1,7 @@
 === Multisite Favicon ===
 
 Description:	Allows each site in a network to set a distinct favicon.
-Version:		1.1.0
+Version:		1.1.1
 Tags:			multisite,favicon
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
@@ -51,6 +51,9 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
+### [Version 1.1.1](https://github.com/azurecurve/azrcrv-multisite-favicon/tree/v1.1.1)
+ * Fix bug with incorrect language load text domain.
+
 ### [Version 1.1.0](https://github.com/azurecurve/azrcrv-multisite-favicon/tree/v1.1.0)
  * Add integration with Update Manager for automatic updates.
  * Fix issue with display of azurecurve menu.
@@ -69,7 +72,7 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # About azurecurve
 
-**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) by [CodePotent](https://codepotent.com/) for fully automated, no hassle, updates.
+**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) by [CodePotent](https://codepotent.com/) for fully integrated, no hassle, updates.
 
 Some of the top plugins available from **azurecurve** are:
 * [Add Twitter Cards](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/)
