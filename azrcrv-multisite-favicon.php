@@ -3,10 +3,10 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Multisite Favicon
  * Description: Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
- * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon
+ * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon/
  * Text Domain: multisite-favicon
  * Domain Path: /languages
  * ------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ function azrcrv_msfi_add_plugin_action_link($links, $file){
 	}
 
 	if ($file == $this_plugin){
-		$settings_link = '<a href="'.get_bloginfo('wpurl').'/wp-admin/admin.php?page=azrcrv-msfi">'.esc_html__('Settings' ,'multisite-favicon').'</a>';
+		$settings_link = '<a href="'.get_bloginfo('wpurl').'/wp-admin/admin.php?page=azrcrv-msfi"><img src="'.plugins_url('/pluginmenu/images/Favicon-16x16.png', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'multisite-favicon').'</a>';
 		array_unshift($links, $settings_link);
 	}
 
