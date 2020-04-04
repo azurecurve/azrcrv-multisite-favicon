@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Multisite Favicon
  * Description: Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon/
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')){
 
 // include plugin menu
 require_once(dirname( __FILE__).'/pluginmenu/menu.php');
-register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_mf');
+register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_msfi');
 
 // include update client
 require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
@@ -71,11 +71,11 @@ function azrcrv_msfi_load_languages() {
  */
 function azrcrv_msfi_set_default_options($networkwide){
 	
+	$option_name = 'azrcrv-msfi';
+	$old_option_name = 'azc_msfi_options';
 	$new_options = array(
-				'min_length' => 10,
-				'max_length' => 500,
-				'mod_length' => 250,
-				'use_network' => 1
+				'default_path' => plugin_dir_url(__FILE__).'images/',
+				'default_favicon' => '',
 			);
 	
 	// set defaults for multi-site
@@ -89,44 +89,73 @@ function azrcrv_msfi_set_default_options($networkwide){
 
 			foreach ($blog_ids as $blog_id){
 				switch_to_blog($blog_id);
-
-				if (get_option('azrcrv-msfi') === false){
-					if (get_option('azc_msfi_options') === false){
-						add_option('azrcrv-msfi', $new_options);
-					}else{
-						add_option('azrcrv-msfi', get_option('azc_msfi_options'));
-					}
-				}
+				
+				azrcrv_msfi_update_options($option_name, $new_options, false, $old_option_name);
 			}
 
 			switch_to_blog($original_blog_id);
 		}else{
-			if (get_option('azrcrv-msfi') === false){
-				if (get_option('azc_msfi_options') === false){
-					add_option('azrcrv-msfi', $new_options);
-				}else{
-					add_option('azrcrv-msfi', get_option('azc_msfi_options'));
-				}
-			}
+			azrcrv_msfi_update_options( $option_name, $new_options, false, $old_option_name);
 		}
-		if (get_site_option('azrcrv-msfi') === false){
-				if (get_option('azc_msfi_options') === false){
-					add_option('azrcrv-msfi', $new_options);
-				}else{
-					add_option('azrcrv-msfi', get_option('azc_msfi_options'));
-				}
+		if (get_site_option($option_name) === false){
+			azrcrv_msfi_update_options($option_name, $new_options, true, $old_option_name);
 		}
 	}
 	//set defaults for single site
 	else{
-		if (get_option('azrcrv-msfi') === false){
-				if (get_option('azc_msfi_options') === false){
-					add_option('azrcrv-msfi', $new_options);
-				}else{
-					add_option('azrcrv-msfi', get_option('azc_msfi_options'));
-				}
+		azrcrv_msfi_update_options($option_name, $new_options, false, $old_option_name);
+	}
+}
+
+/**
+ * Update options.
+ *
+ * @since 1.1.3
+ *
+ */
+function azrcrv_msfi_update_options($option_name, $new_options, $is_network_site, $old_option_name){
+	if ($is_network_site == true){
+		if (get_site_option($option_name) === false){
+			if (get_site_option($old_option_name) === false){
+				add_site_option($option_name, $new_options);
+			}else{
+				add_site_option($option_name, azrcrv_msfi_update_default_options($new_options, get_site_option($old_option_name)));
+			}
+		}else{
+			update_site_option($option_name, azrcrv_msfi_update_default_options($new_options, get_site_option($option_name)));
+		}
+	}else{
+		if (get_option($option_name) === false){
+			if (get_option($old_option_name) === false){
+				add_option($option_name, $new_options);
+			}else{
+				add_option($option_name, azrcrv_msfi_update_default_options($new_options, get_option($old_option_name)));
+			}
+		}else{
+			update_option($option_name, azrcrv_msfi_update_default_options($new_options, get_option($option_name)));
 		}
 	}
+}
+
+
+/**
+ * Add default options to existing options.
+ *
+ * @since 1.1.3
+ *
+ */
+function azrcrv_msfi_update_default_options( &$default_options, $current_options ) {
+    $default_options = (array) $default_options;
+    $current_options = (array) $current_options;
+    $updated_options = $current_options;
+    foreach ($default_options as $key => &$value) {
+        if (is_array( $value) && isset( $updated_options[$key ])){
+            $updated_options[$key] = azrcrv_msfi_update_default_options($value, $updated_options[$key]);
+        } else {
+            $updated_options[$key] = $value;
+        }
+    }
+    return $updated_options;
 }
 
 /**
@@ -323,7 +352,7 @@ function azrcrv_msfi_save_network_options(){
 	
 	if (! empty($_POST) && check_admin_referer('azrcrv-msfi', 'azrcrv-msfi-nonce')){
 		// Retrieve original plugin options array
-		$options = get_site_option('azc_msfi_options');
+		$options = get_site_option('azrcrv-msfi');
 
 		$option_name = 'default_path';
 		if (isset($_POST[$option_name])){
@@ -335,7 +364,7 @@ function azrcrv_msfi_save_network_options(){
 			$options[$option_name] = sanitize_text_fields($_POST[$option_name]);
 		}
 		
-		update_site_option('azc_msfi_options', $options);
+		update_site_option('azrcrv-msfi', $options);
 
 		wp_redirect(network_admin_url('settings.php?page=azurecurve-multisite-favicon'));
 		exit;  
@@ -343,8 +372,8 @@ function azrcrv_msfi_save_network_options(){
 }
 
 function azurecurve_msfi_load_favicon(){
-	$options = get_option('azc_msfi_options');
-	$network_options = get_site_option('azc_msfi_options');
+	$options = get_option('azrcrv-msfi');
+	$network_options = get_site_option('azrcrv-msfi');
 	
 	$icon_url = '';
 	if (strlen($options['default_path']) > 0 and strlen($options['default_favicon']) > 0){
