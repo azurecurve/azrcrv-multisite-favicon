@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Multisite Favicon
  * Description: Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon/
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')){
 
 // include plugin menu
 require_once(dirname( __FILE__).'/pluginmenu/menu.php');
-register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_msfi');
+add_action('admin_init', 'azrcrv_create_plugin_menu_msfi');
 
 // include update client
 require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
@@ -36,7 +36,7 @@ require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php')
  *
  */
 // add actions
-register_activation_hook(__FILE__, 'azrcrv_msfi_set_default_options');
+add_action('admin_init', 'azrcrv_msfi_set_default_options');
 
 // add actions
 add_action('admin_menu', 'azrcrv_msfi_create_admin_menu');
@@ -74,8 +74,9 @@ function azrcrv_msfi_set_default_options($networkwide){
 	$option_name = 'azrcrv-msfi';
 	$old_option_name = 'azc_msfi_options';
 	$new_options = array(
-				'default_path' => plugin_dir_url(__FILE__).'images/',
-				'default_favicon' => '',
+						'default_path' => plugin_dir_url(__FILE__).'images/',
+						'default_favicon' => '',
+						'updated' => strtotime('2020-04-04'),
 			);
 	
 	// set defaults for multi-site
@@ -116,27 +117,26 @@ function azrcrv_msfi_set_default_options($networkwide){
 function azrcrv_msfi_update_options($option_name, $new_options, $is_network_site, $old_option_name){
 	if ($is_network_site == true){
 		if (get_site_option($option_name) === false){
-			if (get_site_option($old_option_name) === false){
-				add_site_option($option_name, $new_options);
-			}else{
-				add_site_option($option_name, azrcrv_msfi_update_default_options($new_options, get_site_option($old_option_name)));
-			}
+			add_site_option($option_name, $new_options);
 		}else{
-			update_site_option($option_name, azrcrv_msfi_update_default_options($new_options, get_site_option($option_name)));
+			$options = get_site_option($option_name);
+			if (!isset($options['updated']) OR $options['updated'] < $new_options['updated'] ){
+				$options['updated'] = $new_options['updated'];
+				update_site_option($option_name, azrcrv_msfi_update_default_options($options, $new_options));
+			}
 		}
 	}else{
 		if (get_option($option_name) === false){
-			if (get_option($old_option_name) === false){
-				add_option($option_name, $new_options);
-			}else{
-				add_option($option_name, azrcrv_msfi_update_default_options($new_options, get_option($old_option_name)));
-			}
+			add_option($option_name, $new_options);
 		}else{
-			update_option($option_name, azrcrv_msfi_update_default_options($new_options, get_option($option_name)));
+			$options = get_option($option_name);
+			if (!isset($options['updated']) OR $options['updated'] < $new_options['updated'] ){
+				$options['updated'] = $new_options['updated'];
+				update_option($option_name, azrcrv_msfi_update_default_options($options, $new_options));
+			}
 		}
 	}
 }
-
 
 /**
  * Add default options to existing options.
@@ -149,10 +149,10 @@ function azrcrv_msfi_update_default_options( &$default_options, $current_options
     $current_options = (array) $current_options;
     $updated_options = $current_options;
     foreach ($default_options as $key => &$value) {
-        if (is_array( $value) && isset( $updated_options[$key ])){
+        if (is_array( $value) && isset( $updated_options[$key])){
             $updated_options[$key] = azrcrv_msfi_update_default_options($value, $updated_options[$key]);
         } else {
-            $updated_options[$key] = $value;
+			$updated_options[$key] = $value;
         }
     }
     return $updated_options;
