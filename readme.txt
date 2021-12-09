@@ -53,6 +53,7 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 ### [Version 1.2.2](https://github.com/azurecurve/azrcrv-multisite-favicon/releases/tag/v1.2.2)
  * Update azurecurve menu.
+ * Update readme files.
 
 ### [Version 1.2.1](https://github.com/azurecurve/azrcrv-multisite-favicon/releases/tag/v1.2.1)
  * Update azurecurve menu and logo.
