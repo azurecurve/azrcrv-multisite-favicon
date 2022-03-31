@@ -2,89 +2,89 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Multisite Favicon\n"
-"POT-Creation-Date: 2020-01-05 13:09+0000\n"
+"POT-Creation-Date: 2021-12-27 18:07+0000\n"
 "PO-Revision-Date: 2019-02-24 18:42+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: translate@azurecurve.co.uk\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: azrcrv-multisite-favicon.php\n"
 
-#: azrcrv-multisite-favicon.php:130
+#: azrcrv-multisite-favicon.php:148
 msgid "Settings"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:147 azrcrv-multisite-favicon.php:248
+#: azrcrv-multisite-favicon.php:165 azrcrv-multisite-favicon.php:271
 msgid "Multisite Favicon Settings"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:148 azrcrv-multisite-favicon.php:249
+#: azrcrv-multisite-favicon.php:166 azrcrv-multisite-favicon.php:272
 msgid "Multisite Favicon"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:162
+#: azrcrv-multisite-favicon.php:180
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:173
+#: azrcrv-multisite-favicon.php:196
 msgid "Site settings have been saved."
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:184
+#: azrcrv-multisite-favicon.php:207
 msgid ""
 "Set the path for where you will be storing the favicon; default is to the "
 "plugin/images folder."
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:186
+#: azrcrv-multisite-favicon.php:209
 msgid "Path"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:188
+#: azrcrv-multisite-favicon.php:211
 msgid "Set folder for favicon"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:190
+#: azrcrv-multisite-favicon.php:213
 msgid "Favicon"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:192
+#: azrcrv-multisite-favicon.php:215
 msgid "Set favicon name"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:211 azrcrv-multisite-favicon.php:264
-#: azrcrv-multisite-favicon.php:305
+#: azrcrv-multisite-favicon.php:234 azrcrv-multisite-favicon.php:287
+#: azrcrv-multisite-favicon.php:333
 msgid "You do not have permissions to perform this action"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:279
+#: azrcrv-multisite-favicon.php:307
 msgid ""
 "Set the default path for where you will be storing the favicons; default is "
 "to the plugin/images folder."
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:281
+#: azrcrv-multisite-favicon.php:309
 msgid "Default Path"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:283
+#: azrcrv-multisite-favicon.php:311
 msgid "Set default folder for favicons"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:285
+#: azrcrv-multisite-favicon.php:313
 msgid "Default Favicon"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:287
+#: azrcrv-multisite-favicon.php:315
 msgid "Set default favicon used when no img attribute set"
 msgstr ""
 
-#: azrcrv-multisite-favicon.php:290
+#: azrcrv-multisite-favicon.php:318
 msgid "Submit"
 msgstr ""
