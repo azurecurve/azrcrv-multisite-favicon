@@ -3,8 +3,9 @@
  * ------------------------------------------------------------------------------
  * Plugin Name:		Multisite Favicon
  * Description:		Allows Setting of Separate Favicon For Each Site In A Multisite Installation.
- * Version:			1.2.5
+ * Version:			1.2.6
  * Requires CP:		1.0
+ * Requires PHP:	7.4
  * Author:			azurecurve
  * Author URI:		https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/multisite-favicon/
